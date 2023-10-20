@@ -1,11 +1,23 @@
 version: '3'
 
 services:
+  butane:
+    container_name: butane
+    build:
+      context: docker/butane
+      dockerfile: Dockerfile
+    command: --strict --pretty -o /mnt/config/config.json /mnt/config/config.yml
+    volumes:
+      - ./config/config.yml:/mnt/config/config.yml:ro
+      - ./config/config.json:/mnt/config/config.json
+
   coreos:
     container_name: fedora-coreos
     build:
-      context: .
+      context: docker/coreos-installer
       dockerfile: Dockerfile
+    command: iso customize --live-ignition=/mnt/config/config.json --live-karg-append=coreos.liveiso.fromram -o /mnt/build/custom.iso /mnt/iso/fedora.iso
     volumes:
+      - ./config/config.json:/mnt/config/config.json:ro
+      - ./iso/${IMAGE_NAME}:/mnt/iso/fedora.iso:ro
       - ./build:/mnt/build
-      - ./config:/mnt/config:ro

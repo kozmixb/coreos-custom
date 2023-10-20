@@ -1,0 +1,77 @@
+{
+  "ignition": {
+    "version": "3.3.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC8RDing3ZJHXVN25GiMMvvoay3j0+8PF0D1cZoxidoUVn3B5KJ+v1OtPm72//oUymFjJFPT7ccCOUl5q1M2wKmqSCVWQr13IQZT1gRwi+ypljEiNrEJMHjKQRs5q6FGXs89HlsZKDvxL7VkJBFM/I4bQAcYwQdbBd47OGzjs3ZLJjgzk+C0kPnV6qsv9L57ylfxXNUxhZk+1dpf5bwkVZidzd7wUJABZce5TxWYeXq3OOgwLM/mGRt5pULjp7I2wFKQvQqCyWaFD//u2Td/+lVg1mMlvOJ0huNuJlOo1c2tlkV5jZNBG4i1zQw4pEOwxUzq1cKB0rYhE0VFi3SzCYCS9YPt1GftXKy0zfhlbr6zTGKmFxzJbqejHWJ2yNrFnC6MbjoAwEC0Vcz7PpTeZnFVFVJTC89+C1swUDYyhmR6UTmW73XtP6TyxQjQ246L5ZC85VToPffmk7knLJPXPqWt572TRetEly8LrUIGS+GTJTfqfLYvz2svp7/CNPfovNDGgb4R45uDqloVWWSq7tfUxkOGRTzh4c6Pkv4H3IcCVOmvYzhnRgC6WibF+Ju4Xk2+CMI54n3vW3P5CRFhfUxugoYA1iBXWj7UJDhaTsYpTf9ae2joXU/IuzI1r1cRnqQO63DguDnPuj/OJZoYk2cloYGcGd0nlia4GhIA7AxAQ== bencekozma@MacBook-Pro-Personal.local"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "path": "/etc/hostname",
+        "contents": {
+          "compression": "",
+          "source": "data:,coreos"
+        },
+        "mode": 420
+      },
+      {
+        "overwrite": true,
+        "path": "/etc/dnf/modules.d/cri-o.module",
+        "contents": {
+          "compression": "",
+          "source": "data:,%5Bcri-o%5D%0Aname%3Dcri-o%0Astream%3D1.17%0Aprofiles%3D%0Astate%3Denabled%0A"
+        },
+        "mode": 420
+      },
+      {
+        "overwrite": true,
+        "path": "/etc/yum.repos.d/kubernetes.repo",
+        "contents": {
+          "compression": "gzip",
+          "source": "data:;base64,H4sIAAAAAAAC/4yNUQrDIBiD3z1FL6BSGN0YeIIdYYxibfgLav3RCvP2ozC6PfYpJORLnr5OyCs2lJdYbYR5HIGYbEHNwSzbxuWuNVvnLaEoF1KdFaVEAcqlqFuNOoNT0b89iXCV79swDheB1U4Bs+kFMbkFzpte7MD454nJo518m5PbVXo0RUyi685zmaP8tg7+EwAA//+EhlgnCQEAAA=="
+        },
+        "mode": 420
+      },
+      {
+        "overwrite": true,
+        "path": "/etc/modules-load.d/br_netfilter.conf",
+        "contents": {
+          "compression": "",
+          "source": "data:,br_netfilter"
+        },
+        "mode": 420
+      },
+      {
+        "overwrite": true,
+        "path": "/etc/sysctl.d/kubernetes.conf",
+        "contents": {
+          "compression": "",
+          "source": "data:,net.bridge.bridge-nf-call-iptables%3D1%0Anet.ipv4.ip_forward%3D1%0A"
+        },
+        "mode": 420
+      },
+      {
+        "path": "/etc/zincati/config.d/51-rollout-wariness.toml",
+        "contents": {
+          "compression": "",
+          "source": "data:,%5Bidentity%5D%0Arollout_wariness%20%3D%200.1%0A"
+        }
+      },
+      {
+        "path": "/etc/zincati/config.d/55-updates-strategy.toml",
+        "contents": {
+          "compression": "",
+          "source": "data:;base64,W3VwZGF0ZXNdCnN0cmF0ZWd5ID0gInBlcmlvZGljIgpbW3VwZGF0ZXMucGVyaW9kaWMud2luZG93XV0KZGF5cyA9IFsgIlNhdCIsICJTdW4iIF0Kc3RhcnRfdGltZSA9ICIyMjozMCIKbGVuZ3RoX21pbnV0ZXMgPSA2MAo="
+        }
+      }
+    ]
+  }
+}

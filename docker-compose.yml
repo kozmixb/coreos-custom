@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  coreos:
+    container_name: fedora-coreos
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./build:/mnt/build
+      - ./config:/mnt/config:ro

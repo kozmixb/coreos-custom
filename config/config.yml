@@ -1,0 +1,70 @@
+variant: fcos
+version: 1.4.0
+storage:
+  files:
+    # Update Hostname
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: coreos
+    # ____________________ KUBERNETES ____________________
+    # CRI-O DNF module
+    - path: /etc/dnf/modules.d/cri-o.module
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: |
+          [cri-o]
+          name=cri-o
+          stream=1.17
+          profiles=
+          state=enabled
+    # YUM repository for kubeadm, kubelet and kubectl
+    - path: /etc/yum.repos.d/kubernetes.repo
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: |
+          [kubernetes]
+          name=Kubernetes
+          baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+          enabled=1
+          gpgcheck=1
+          repo_gpgcheck=1
+          gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+            https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    # configuring automatic loading of br_netfilter on startup
+    - path: /etc/modules-load.d/br_netfilter.conf
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: br_netfilter
+    # setting kernel parameters required by kubelet
+    - path: /etc/sysctl.d/kubernetes.conf
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: |
+          net.bridge.bridge-nf-call-iptables=1
+          net.ipv4.ip_forward=1
+    # ____________________ ZINCATI UPDATES ____________________
+    # Restrict rollout updates
+    - path: /etc/zincati/config.d/51-rollout-wariness.toml
+      contents:
+        inline: |
+          [identity]
+          rollout_wariness = 0.1
+    - path: /etc/zincati/config.d/55-updates-strategy.toml
+      contents:
+        inline: |
+          [updates]
+          strategy = "periodic"
+          [[updates.periodic.window]]
+          days = [ "Sat", "Sun" ]
+          start_time = "22:30"
+          length_minutes = 60
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC8RDing3ZJHXVN25GiMMvvoay3j0+8PF0D1cZoxidoUVn3B5KJ+v1OtPm72//oUymFjJFPT7ccCOUl5q1M2wKmqSCVWQr13IQZT1gRwi+ypljEiNrEJMHjKQRs5q6FGXs89HlsZKDvxL7VkJBFM/I4bQAcYwQdbBd47OGzjs3ZLJjgzk+C0kPnV6qsv9L57ylfxXNUxhZk+1dpf5bwkVZidzd7wUJABZce5TxWYeXq3OOgwLM/mGRt5pULjp7I2wFKQvQqCyWaFD//u2Td/+lVg1mMlvOJ0huNuJlOo1c2tlkV5jZNBG4i1zQw4pEOwxUzq1cKB0rYhE0VFi3SzCYCS9YPt1GftXKy0zfhlbr6zTGKmFxzJbqejHWJ2yNrFnC6MbjoAwEC0Vcz7PpTeZnFVFVJTC89+C1swUDYyhmR6UTmW73XtP6TyxQjQ246L5ZC85VToPffmk7knLJPXPqWt572TRetEly8LrUIGS+GTJTfqfLYvz2svp7/CNPfovNDGgb4R45uDqloVWWSq7tfUxkOGRTzh4c6Pkv4H3IcCVOmvYzhnRgC6WibF+Ju4Xk2+CMI54n3vW3P5CRFhfUxugoYA1iBXWj7UJDhaTsYpTf9ae2joXU/IuzI1r1cRnqQO63DguDnPuj/OJZoYk2cloYGcGd0nlia4GhIA7AxAQ== bencekozma@MacBook-Pro-Personal.local

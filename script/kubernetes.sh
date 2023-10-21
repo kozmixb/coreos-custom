@@ -2,6 +2,7 @@
 
 # Run on master node
 sudo rpm-ostree install kubelet kubeadm kubectl cri-o
+sudo systemctl reboot
 sudo systemctl enable --now crio kubelet
 
 # Run this on slaves

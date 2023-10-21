@@ -8,6 +8,8 @@ sudo systemctl enable --now crio kubelet
 # Run this on slaves
 # sudo rpm-ostree install kubelet kubeadm cri-o
 
+kubeadm init ––config clusterconfig.yml
+
 
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config

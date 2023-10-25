@@ -1,5 +1,17 @@
 variant: fcos
 version: 1.4.0
+coreos:
+  units:
+    - name: run-media-jellyfin.mount
+      command: start
+      content: |
+        [Mount]
+        What=/dev/disk/by-uuid/dd430f67-333d-4797-801e-7ee5d3d74e81
+        Where=/run/media/jellyfin
+        Type=ext
+
+        [Install]
+        WantedBy=multi-user.target
 storage:
   files:
     # Update Hostname
